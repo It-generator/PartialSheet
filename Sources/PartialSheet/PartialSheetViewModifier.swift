@@ -196,12 +196,14 @@ extension PartialSheet {
                     }
                 }
                 .edgesIgnoringSafeArea(.vertical)
-                .onTapGesture {
-                    withAnimation(manager.defaultAnimation) {
-                        self.manager.isPresented = false
-                        self.dismissKeyboard()
-                        self.manager.onDismiss?()
-                    }
+                .if(!manager.isImmutable) {
+                  $0.onTapGesture {
+                      withAnimation(manager.defaultAnimation) {
+                          self.manager.isPresented = false
+                          self.dismissKeyboard()
+                          self.manager.onDismiss?()
+                      }
+                  }
                 }
             }
             // The SHEET VIEW
@@ -241,7 +243,9 @@ extension PartialSheet {
                 .cornerRadius(style.cornerRadius)
                 .shadow(color: Color(.sRGBLinear, white: 0, opacity: 0.13), radius: 10.0)
                 .offset(y: self.sheetPosition)
-                .gesture(drag)
+                .if(!manager.isImmutable) {
+                  $0.gesture(drag)
+                }
             }
         }
     }
@@ -419,4 +423,33 @@ public extension View {
     func partialSheet<Content: View>(isPresented: Binding<Bool>, @ViewBuilder content: @escaping () -> Content) -> some View {
         PartialSheetAddView(isPresented: isPresented, content: content, base: self)
     }
+}
+
+////!!!
+public extension View {
+  
+  @ViewBuilder
+  func `if`<TrueContent: View>(
+    _ condition: Bool,
+    if ifTransform: (Self) -> TrueContent
+  ) -> some View {
+    if condition {
+      ifTransform(self)
+    } else {
+      self
+    }
+  }
+  
+  @ViewBuilder
+  func `if`<TrueContent: View, FalseContent: View>(
+    _ condition: Bool,
+    if ifTransform: (Self) -> TrueContent,
+    else elseTransform: (Self) -> FalseContent
+  ) -> some View {
+    if condition {
+      ifTransform(self)
+    } else {
+      elseTransform(self)
+    }
+  }
 }

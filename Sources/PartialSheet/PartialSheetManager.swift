@@ -42,6 +42,8 @@ public class PartialSheetManager: ObservableObject {
     /// Possibility to customize the slide in/out animation of the partial sheet
     public var defaultAnimation: Animation = .interpolatingSpring(stiffness: 300.0, damping: 30.0, initialVelocity: 10.0)
 
+    public var isImmutable: Bool = false
+
     public init() {
         self.content = AnyView(EmptyView())
     }
