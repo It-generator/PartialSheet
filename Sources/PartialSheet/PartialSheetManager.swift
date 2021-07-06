@@ -103,5 +103,6 @@ public class PartialSheetManager: ObservableObject {
             self.isPresented = false
         }
         self.onDismiss?()
+        self.isImmutable = false
     }
 }
