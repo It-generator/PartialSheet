@@ -243,9 +243,9 @@ extension PartialSheet {
                 .cornerRadius(style.cornerRadius)
                 .shadow(color: Color(.sRGBLinear, white: 0, opacity: 0.13), radius: 10.0)
                 .offset(y: self.sheetPosition)
-                .if(!manager.isImmutable) {
-                  $0.gesture(drag)
-                }
+//                .if(!manager.isImmutable) {
+//                  $0.gesture(drag)
+//                }
             }
         }
     }
@@ -420,10 +420,8 @@ struct PartialSheetAddView<Base: View, InnerContent: View>: View {
 }
 
 public extension View {
-  func partialSheet<Content: View>(isImmutable: Bool = false, isPresented: Binding<Bool>, @ViewBuilder content: @escaping () -> Content) -> some View {
+  func partialSheet<Content: View>(isPresented: Binding<Bool>, @ViewBuilder content: @escaping () -> Content) -> some View {
         PartialSheetAddView(isPresented: isPresented, content: content, base: self)
-//        x.partialSheetManager.isImmutable = isImmutable
-//        return x
     }
 }
 
