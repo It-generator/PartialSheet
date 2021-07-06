@@ -428,7 +428,7 @@ public extension View {
 }
 
 ////!!!
-public extension View {
+fileprivate extension View {
   
   @ViewBuilder
   func `if`<TrueContent: View>(
