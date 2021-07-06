@@ -421,9 +421,9 @@ struct PartialSheetAddView<Base: View, InnerContent: View>: View {
 
 public extension View {
   func partialSheet<Content: View>(isImmutable: Bool = false, isPresented: Binding<Bool>, @ViewBuilder content: @escaping () -> Content) -> some View {
-        let x = PartialSheetAddView(isPresented: isPresented, content: content, base: self)
-        x.partialSheetManager.isImmutable = isImmutable
-        return x
+        PartialSheetAddView(isPresented: isPresented, content: content, base: self)
+//        x.partialSheetManager.isImmutable = isImmutable
+//        return x
     }
 }
 
